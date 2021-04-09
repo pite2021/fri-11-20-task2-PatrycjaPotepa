@@ -1,26 +1,86 @@
-#
-#Banking simulator. Write a code in python that simulates the banking system. 
-#The program should:
-# - be able to create new banks
-# - store client information in banks
-# - allow for cash input and withdrawal
-# - allow for money transfer from client to client
-#If you can think of any other features, you can add them.
-#This code shoud be runnable with 'python task.py'.
-#You don't need to use user input, just show me in the script that the structure of your code works.
-#If you have spare time you can implement: Command Line Interface, some kind of data storage, or even multiprocessing.
-#
-#Try to expand your implementation as best as you can. 
-#Think of as many features as you can, and try implementing them.
-#Make intelligent use of pythons syntactic sugar (overloading, iterators, generators, etc)
-#Most of all: CREATE GOOD, RELIABLE, READABLE CODE.
-#The goal of this task is for you to SHOW YOUR BEST python programming skills.
-#Impress everyone with your skills, show off with your code.
-#
-#Your program must be runnable with command "python task.py".
-#Show some usecases of your library in the code (print some things)
-#
-#When you are done upload this code to your github repository. 
-#
-#Delete these comments before commit!
-#Good luck.
+import sys
+
+class Client:
+  def __init__(self, surname, name, cash):
+    self.surname = surname
+    self.name = name
+    self.cash = cash
+
+  def __repr__(self):
+    visuals = '{} {}\ncash: {} zl'.format(self.surname, self.name, self.cash)
+    return visuals
+
+  def input(self, value):
+    self.cash += value
+
+  def withdrawal(self, value):
+    self.cash -= value
+
+  def transfer(self, value, client_to):
+    self.cash -= value
+    client_to.cash += value
+
+  def interface(self, command):
+    if command == '':
+      pass
+    elif command == 'i':
+      self.input(float(input()))
+    elif command == 'w':
+      self.withdrawal(float(input()))
+    elif command == 'q':
+      sys.exit()
+
+class Bank:
+  def __init__(self, name):
+    self.name = name
+    self.clients = []
+
+  def add_client(self, surname, name, cash):
+    self.clients.append(Client(surname, name, cash))
+
+  def __repr__(self):
+    return '{}'.format(self.name)
+
+  def __str__(self):
+    visuals = '{}\n'.format(self.name)
+    visuals += 'Number of clients: {}\n'.format(len(self.clients))
+    return visuals
+
+
+if __name__ == '__main__':
+  banks = []
+  banks.append(Bank('mbank'))
+  banks.append(Bank('PKO'))
+
+  print(banks)
+
+  banks[0].add_client('Anna','Nowak',1000)
+  banks[0].add_client('Ewa','Nowak',1000)
+  banks[1].add_client('Piotr','Kowalski',2000)
+
+  print(banks[0])
+  print(banks[1])
+
+  print('\n---------- input/withdrawal ----------\n')
+  
+  print(banks[0].clients[0])
+  banks[0].clients[0].input(100)
+  print(banks[0].clients[0])
+  banks[0].clients[0].withdrawal(200)
+  print(banks[0].clients[0])
+
+  print('\n---------- transfer ----------\n')
+
+  print(banks[1].clients[0])
+  print(banks[0].clients[0])
+
+  print()
+  banks[1].clients[0].transfer(500,banks[0].clients[0])
+
+  print(banks[1].clients[0])
+  print(banks[0].clients[0])
+
+  client = banks[1].clients[0]
+  while True:
+    client.interface(input())
+    print(client)
