@@ -24,8 +24,10 @@ class Client:
     if command == '':
       pass
     elif command == 'i':
+      print('type value to input')
       self.input(float(input()))
     elif command == 'w':
+      print('type value to withdraw')
       self.withdrawal(float(input()))
     elif command == 'q':
       sys.exit()
@@ -79,6 +81,8 @@ if __name__ == '__main__':
 
   print(banks[1].clients[0])
   print(banks[0].clients[0])
+
+  print('\n---------- Command Line Interface ----------\n')
 
   client = banks[1].clients[0]
   while True:
