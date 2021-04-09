@@ -56,9 +56,9 @@ if __name__ == '__main__':
 
   print(banks)
 
-  banks[0].add_client('Anna','Nowak',1000)
-  banks[0].add_client('Ewa','Nowak',1000)
-  banks[1].add_client('Piotr','Kowalski',2000)
+  banks[0].add_client('Anna','Nowak',1000.)
+  banks[0].add_client('Ewa','Nowak',1000.)
+  banks[1].add_client('Piotr','Kowalski',2000.)
 
   print(banks[0])
   print(banks[1])
@@ -66,9 +66,9 @@ if __name__ == '__main__':
   print('\n---------- input/withdrawal ----------\n')
   
   print(banks[0].clients[0])
-  banks[0].clients[0].input(100)
+  banks[0].clients[0].input(100.)
   print(banks[0].clients[0])
-  banks[0].clients[0].withdrawal(200)
+  banks[0].clients[0].withdrawal(200.)
   print(banks[0].clients[0])
 
   print('\n---------- transfer ----------\n')
@@ -77,7 +77,7 @@ if __name__ == '__main__':
   print(banks[0].clients[0])
 
   print()
-  banks[1].clients[0].transfer(500,banks[0].clients[0])
+  banks[1].clients[0].transfer(500.,banks[0].clients[0])
 
   print(banks[1].clients[0])
   print(banks[0].clients[0])
